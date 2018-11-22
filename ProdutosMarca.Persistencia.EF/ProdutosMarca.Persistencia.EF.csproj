@@ -49,6 +49,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Context\ProdutosMarcasDbContext.cs" />
+    <Compile Include="Migrations\201811221707413_Inicial_criacao_tabelas.cs" />
+    <Compile Include="Migrations\201811221707413_Inicial_criacao_tabelas.Designer.cs">
+      <DependentUpon>201811221707413_Inicial_criacao_tabelas.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -60,6 +65,11 @@
       <Project>{7d5bbd06-70a3-4179-990b-854a9703d69c}</Project>
       <Name>ProdutosMarcas.Dominio</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201811221707413_Inicial_criacao_tabelas.resx">
+      <DependentUpon>201811221707413_Inicial_criacao_tabelas.cs</DependentUpon>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
