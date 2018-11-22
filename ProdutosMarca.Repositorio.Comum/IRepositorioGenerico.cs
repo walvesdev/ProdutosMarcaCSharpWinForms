@@ -9,7 +9,7 @@ namespace ProdutosMarca.Repositorio.Comum
     public interface IRepositorioGenerico<T>
     {
         List<T> SelecionarTodos();
-        T SelecionarPorId(T id);
+        T SelecionarPorId(int id);
         void Inserir(T entidade);
         void Atualizar(T entidade);
         void Excluir(T entidade);
