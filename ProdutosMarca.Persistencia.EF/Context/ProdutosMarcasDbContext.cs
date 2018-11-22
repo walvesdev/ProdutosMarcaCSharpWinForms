@@ -14,7 +14,7 @@ namespace ProdutosMarca.Persistencia.EF.Context
                 .HasRequired(p => p.Marca) //um produto requer um marca
                 .WithMany(p => p.Produtos) //marca pode ter varios produtos
                 .HasForeignKey(fk => fk.MarcaId) //chave estrangeira MarcaId
-                .WillCascadeOnDelete(false); // exclusao em cascata desativada
+                .WillCascadeOnDelete(false); //exclusao em cascata desativada
         }
     }
 }
