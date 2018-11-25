@@ -55,12 +55,14 @@ namespace ProdutosMarca.Repositorio.EF
             }
         }
 
-        public List<Produto> SelecionarTodos()
+        public Task<List<Produto>> SelecionarTodos()
         {
+            return Task.Run(()=>{ 
             using (ProdutosMarcasDbContext banco = new ProdutosMarcasDbContext())
             {
                 return banco.Produtos.Include("Marca").ToList();
             }
+            });
         }
     }
 }
