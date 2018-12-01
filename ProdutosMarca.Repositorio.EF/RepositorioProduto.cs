@@ -15,12 +15,11 @@ namespace ProdutosMarca.Repositorio.EF
         {
             using (ProdutosMarcasDbContext banco = new ProdutosMarcasDbContext())
             {
-                Marca marca = banco.Marcas.Find(entidade.Marca);
+                Marca marca = banco.Marcas.Find(entidade.MarcaId);
                 entidade.Marca = marca;
 
                 banco.Produtos.Attach(entidade);
                 banco.Entry(entidade).State = System.Data.Entity.EntityState.Modified;
-                banco.Produtos.Add(entidade);
                 banco.SaveChanges();
             }
         }

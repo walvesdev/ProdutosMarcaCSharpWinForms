@@ -83,5 +83,100 @@ namespace ProdutosMarca.Apresentacao
         {
 
         }
+
+        private void btnCadastrarMarca_Click(object sender, EventArgs e)
+        {
+            FrmMarca frmMarca = new FrmMarca();
+            frmMarca.ShowDialog();
+            PreencherDataGridViewMarcasAsync();
+        }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            FrmCadastrarProduto frmCadastrarProduto = new FrmCadastrarProduto();
+            frmCadastrarProduto.ShowDialog();
+            PreencherDataGridViewProdutoAsync();
+        }
+
+        private void btnAlterarMarca_Click(object sender, EventArgs e)
+        {
+            if (dgvMarcas.SelectedRows.Count > 0 )
+            {
+                int idMarcaSelecionada = Convert.ToInt32(dgvMarcas.SelectedRows[0].Cells[0].Value);
+                IRepositorioGenerico<Marca> repositorioMarca = new RepositorioMarca();
+
+                Marca marcaASerAlterada = repositorioMarca.SelecionarPorId(idMarcaSelecionada);
+                FrmMarca frmMarca = new FrmMarca(marcaASerAlterada);
+                frmMarca.ShowDialog();
+                PreencherDataGridViewMarcasAsync();
+                PreencherDataGridViewProdutoAsync();
+            }
+            else
+            {
+                MessageBox.Show("Selecione uma marca para alteração", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnAlterarProduto_Click(object sender, EventArgs e)
+        {
+            if (dgvProdutos.SelectedRows.Count > 0)
+            {
+                int idProutoSelecionado = Convert.ToInt32(dgvProdutos.SelectedRows[0].Cells[0].Value);
+                IRepositorioGenerico<Produto> repositorioProduto = new RepositorioProduto();
+
+                Produto produtoASerAlterado = repositorioProduto.SelecionarPorId(idProutoSelecionado);
+                FrmCadastrarProduto frmCadastrarProduto = new FrmCadastrarProduto(produtoASerAlterado);
+                frmCadastrarProduto.ShowDialog();
+                PreencherDataGridViewProdutoAsync();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um produto para alteração", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void btnExcluirMarca_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                if (dgvMarcas.SelectedRows.Count > 0)
+                {
+                    int idMarcaSelecionada = Convert.ToInt32(dgvMarcas.SelectedRows[0].Cells[0].Value);
+                    IRepositorioGenerico<Marca> repositorioMarca = new RepositorioMarca();
+
+                    Marca marcaASerExcluida = repositorioMarca.SelecionarPorId(idMarcaSelecionada);
+                    repositorioMarca.Excluir(marcaASerExcluida);
+                    PreencherDataGridViewMarcasAsync();
+                    PreencherDataGridViewProdutoAsync();
+                }
+                else
+                {
+                    MessageBox.Show("Selecione uma marca para alteração", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                }
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Existe produtos vinculados a essa marca, para exclui-la primeiro é necessário excluir os produtos relacionados ou desvincular a marca de quaisquer produto!", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            
+        }
+
+        private void btnExcluirProduto_Click(object sender, EventArgs e)
+        {
+            if (dgvProdutos.SelectedRows.Count > 0)
+            {
+                int idProutoSelecionado = Convert.ToInt32(dgvProdutos.SelectedRows[0].Cells[0].Value);
+                IRepositorioGenerico<Produto> repositorioProduto = new RepositorioProduto();
+
+                Produto produtoASerExcluido = repositorioProduto.SelecionarPorId(idProutoSelecionado);
+                repositorioProduto.Excluir(produtoASerExcluido);
+                PreencherDataGridViewProdutoAsync();
+            }
+            else
+            {
+                MessageBox.Show("Selecione um produto para alteração", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
     }
 }
